@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- xml 주석 -->
+<mapper namespace="example.task1.AccountDao" >  <!-- mapper start -->
+    <!-- namespace=" 매핑할 인터페이스 경로(위치) " -->
+    <insert id="saveAccount" parameterType="example.task1.AccountDto">
+        insert into account ( info , money ) values ( #{info} , #{money} )
+    </insert>
+
+    <select id="findAllAccounts" resultType="example.task1.AccountDto">
+        select * from account
+    </select>
+
+    <update id="updateAccount" parameterType="example.task1.AccountDto">
+        update account
+        set info = #{info}, money = #{money} where number = #{number}
+    </update>
+
+    <delete id="deleteAccount" parameterType="int">
+        delete from account where number = #{number}
+    </delete>
+</mapper> <!-- mapper end -->

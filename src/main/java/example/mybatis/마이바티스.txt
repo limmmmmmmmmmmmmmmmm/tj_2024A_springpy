@@ -1,0 +1,10 @@
+[1] JDBC(Java DataBase Connectivity)
+    - 자바에서 데이터베이스에 접속할수 있도록 하는 자바 API
+    - 대표 인터페이스
+    1. Connection
+    2. PreparedStatement
+    3. ResultSet
+[2] 마이바티스( MyBatis )
+    - 자바에서 데이터베이스와 상호작용할수 있도록
+
+깃허브 참조

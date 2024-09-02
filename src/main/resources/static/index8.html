@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    <h3>명부</h3>
+    <table border="1" style="width:400px">
+        <thead>
+        <tr>
+            <th>번호</th><th>내용</th><th>가격</th><th>날짜</th>
+        </tr>
+        <input id="info" type="text" placeholder="내용">
+        <input id="money" type="text" placeholder="가격">
+        <button onclick="save()"> 등록 </button>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+    <input id="delNum" type="text" placeholder="번호">
+    <button onclick="deleteInfo()"> 삭제 </button>
+    <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script>
+
+        fiadAll()
+        function fiadAll(){
+           console.log("fiadAll()");
+           $.ajax({
+               async : false, method : "get" , url : "/account/findAll" ,
+               success : r => {console.log(r);
+                   let tbody = document.querySelector('tbody')
+                   let html = '';
+                   r.forEach( 기입장 => {
+                       html += `<tr>
+                               <th>${기입장.number}</th>
+                               <th>${기입장.info}</th>
+                               <th>${기입장.money}</th>
+                               <th>${기입장.date}</th>
+                               </tr>`
+                       })
+                   tbody.innerHTML = html
+                   }
+           })
+        }
+
+        function save(){
+            console.log("save()");
+            let info = document.querySelector('#info').value
+            let money = document.querySelector('#money').value
+            let data = {info: info, money: money};
+            $.ajax({
+               async : false, method : "post" , url : "/account/save" ,
+               data: data,
+               success : r => {console.log(r);
+                   if (r) {
+                    alert('등록 성공');
+                    } else { alert('등록 실패'); }
+               }
+           })
+           document.querySelector('#info').value = '';
+           document.querySelector('#money').value = '';
+           fiadAll()
+        }
+
+         function deleteInfo(){
+            console.log("deleteInfo()");
+            let delNum = document.querySelector('#delNum').value;
+            $.ajax({
+               async : false, method : "delete" , url : "/account/delete" ,
+               data: {number : delNum},
+               success : r => {console.log(r);
+                   if (r) {
+                    alert('삭제 성공');
+                    } else { alert('삭제 실패'); }
+               }
+           })
+           document.querySelector('#delNum').value = '';
+           fiadAll()
+        }
+
+
+
+
+
+
+    </script>
+
+
+
+</body>
+</html>
