@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+    <input id="cafeName" placeholder="음료 이름">
+    <input id="cafePrice" placeholder="가격">
+    <button type="button" onclick="cafeCreate()">등록</button>
+
+    <table border="1">
+      <thead>
+          <tr>
+            <th>번호</th><th>음료명</th><th>가격</th><th>사이즈</th><th>얼음</th>
+          </tr>
+      </thead>
+      <tbody>
+
+      </tbody>
+    </table>
+    <input id="cafeNo" placeholder="삭제할 번호">
+    <button type="button" onclick="cafeDelete()">삭제</button>
+
+
+    <script>
+      console.log("cafe.js")
+      function cafeCreate(){
+            let name = document.querySelector('#cafeName').value;
+            let price = document.querySelector('#cafePrice').value;
+
+            let data = { name : name , price : price }
+
+            console.log("cafeCreate.js")
+            $.ajax({
+               async : false, method : "post" , url : "/cafe/create" ,
+               data : data ,
+               success : r => {console.log(r);
+                   console.log("등록성공");
+               }
+            })
+             allRead()
+             document.querySelector('#cafeName').value = "" ;
+             document.querySelector('#cafePrice').value = "" ;
+    }
+
+      allRead()
+      function allRead(){
+      $.ajax({
+               async : false, method : "get" , url : "/cafe/allRead" ,
+               success : r => {console.log(r);
+                   let tbody = document.querySelector('tbody')
+                   let html = '';
+                   r.forEach( c => {
+                       html += `<tr>
+                               <th>${c.no}</th>
+                               <th>${c.name}</th>
+                               <th>${c.price}</th>
+                               <th>${c.size}</th>
+                               <th>${c.ice}</th>
+                               </tr>`
+                       })
+                   tbody.innerHTML = html
+                   }
+            })
+      }
+
+      function cafeDelete(){
+            let no = document.querySelector('#cafeNo').value;
+            let data = { no : no }
+
+            console.log("cafeDelete.js")
+            $.ajax({
+               async : false, method : "delete" , url : "/cafe/delete" ,
+               data : data ,
+               success : r => { console.log(r);
+                   console.log("삭제성공");
+               }
+            })
+             allRead()
+             document.querySelector('#cafeNo').value = "" ;
+     }
+
+
+
+    </script>
+
+
+
+
+
+</body>
+</html>

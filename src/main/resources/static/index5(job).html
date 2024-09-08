@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <h3>  잡코리아 java 검색 채용정보 </h3>
+    <table border="1">
+        <thead>
+        <tr>
+            <th>이름</th> <th>설명 </th> <th>경력 </th> <th>학력 </th> <th>계약유형 </th> <th>지역</th> <th>채용</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+        <script>
+            console.log("jobkorea.js")
+            $.ajax({
+               async : false, method : "get" , url : "http://localhost:5000/jobkorea" ,
+               success : r => {console.log(r);
+                   let tbody = document.querySelector('tbody')
+                   let html = '';
+                   r.forEach( 채용 => {
+                       html += `<tr>
+                               <th>${채용.이름}</th>
+                               <th>${채용.설명}</th>
+                               <th>${채용.경력}</th>
+                               <th>${채용.학력}</th>
+                               <th>${채용.계약유형}</th>
+                               <th>${채용.지역}</th>
+                               <th>${채용.채용기간}</th>
+                               </tr>`
+                       })
+                   tbody.innerHTML = html
+                   }
+            })
+        </script>
+</table>
+</body>
+</html>

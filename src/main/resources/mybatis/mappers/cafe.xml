@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- xml 주석 -->
+<mapper namespace="example.ttestt.CafeDao" >  <!-- mapper start -->
+    <!-- namespace=" 매핑할 인터페이스 경로(위치) " -->
+    <insert id="cCreate" parameterType="example.ttestt.CafeDto">
+        insert into cafe ( name , price ) values ( #{name} , #{price} )
+    </insert>
+
+    <select id="cRead"  parameterType="example.ttestt.CafeDto">
+        select * from cafe
+    </select>
+
+    <update id="cUpdate" parameterType="example.ttestt.CafeDto">
+        update cafe
+        set name = #{name}, price = #{price} where no = #{no}
+    </update>
+
+    <delete id="cDelete" parameterType="example.ttestt.CafeDto">
+        delete from cafe where no = #{no}
+    </delete>
+
+
+
+
+</mapper> <!-- mapper end -->
